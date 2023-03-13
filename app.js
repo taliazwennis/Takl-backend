@@ -122,7 +122,8 @@ app.get("/auth-endpoint", auth, (request, response) => {
 app.get("/user/:id", (request, response) => {
   const storedTitle = request.params.id;
   User.findOne({_id: storedTitle }).then((result) => {
-    response.json({ message: result.notes });
+    response.json({ message: "User ID and Notes",
+      notes: result.notes });
   });
 });
 
