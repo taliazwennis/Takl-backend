@@ -33,9 +33,9 @@ app.get("/", (request, response, next) => {
 
 app.get("/:id", (request, response) => {
   const storedTitle = request.params.id;
-  User.findOne({_id: storedTitle }).then((result) => {
-    response.json({ message: result.notes });
-  });
+  // User.findOne({_id: storedTitle }).then((result) => {
+  //   response.json({ message: result.notes });
+  // });
 });
 
 
