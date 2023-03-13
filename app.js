@@ -129,7 +129,7 @@ app.get("/user/:id", (request, response) => {
 
 app.put("/user/:id", (request, response) => {
   const storedTitle = request.params.id;
-  User.findOneAndUpdate({_id: storedTitle }, {notes: request.body.notes}).then((user) => {
+  User.findByIdAndUpdate(storedTitle, {notes: request.body.notes}).then((user) => {
     response.json({ message: "Your notes were successfully updates", 
   notes: user});
   });
