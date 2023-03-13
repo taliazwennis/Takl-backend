@@ -31,12 +31,6 @@ app.get("/", (request, response, next) => {
   next();
 });
 
-app.get("/:id", (request, response) => {
-  const storedTitle = request.params.id;
-  // User.findOne({_id: storedTitle }).then((result) => {
-  //   response.json({ message: result.notes });
-  // });
-});
 
 
 app.post("/register", (request, response) => {
@@ -123,5 +117,13 @@ app.get("/free-endpoint", (request, response) => {
 app.get("/auth-endpoint", auth, (request, response) => {
   response.send({ message: "You are authorized to access me" });
 });
+
+app.get("/user/:id", (request, response) => {
+  const storedTitle = request.params.id;
+  User.findOne({_id: storedTitle }).then((result) => {
+    response.json({ message: result.notes });
+  });
+});
+
 
 module.exports = app;
