@@ -31,6 +31,14 @@ app.get("/", (request, response, next) => {
   next();
 });
 
+app.get("/:id", (request, response) => {
+  const storedTitle = request.params.id;
+  User.findOne({_id: storedTitle }).then((result) => {
+    response.json({ message: result.notes });
+  });
+});
+
+
 app.post("/register", (request, response) => {
   bcrypt
     .hash(request.body.password, 10)
@@ -71,8 +79,7 @@ app.post("/login", (request, response) => {
         .compare(request.body.password, user.password)
 
         .then((passwordCheck) => {
-
-          if(!passwordCheck) {
+          if (!passwordCheck) {
             return response.status(400).send({
               message: "Passwords does not match",
               error,
