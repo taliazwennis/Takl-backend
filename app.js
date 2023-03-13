@@ -31,8 +31,6 @@ app.get("/", (request, response, next) => {
   next();
 });
 
-
-
 app.post("/register", (request, response) => {
   bcrypt
     .hash(request.body.password, 10)
@@ -121,19 +119,22 @@ app.get("/auth-endpoint", auth, (request, response) => {
 
 app.get("/user/:id", (request, response) => {
   const storedTitle = request.params.id;
-  User.findOne({_id: storedTitle }).then((result) => {
-    response.json({ message: "User ID and Notes",
-      notes: result.notes });
+  User.findOne({ _id: storedTitle }).then((result) => {
+    response.json({ message: "User ID and Notes", notes: result.notes });
   });
 });
 
 app.put("/user/:id", (request, response) => {
   const storedTitle = request.params.id;
-  User.findByIdAndUpdate(storedTitle, {notes: request.body.notes}).then((user) => {
-    response.json({ message: "Your notes were successfully updates", 
-  notes: user});
-  });
+  User.findByIdAndUpdate(storedTitle, { notes: request.body.notes }).then(
+    (user) => {
+      response
+        .json({ message: "Your notes were successfully updates", notes: user })
+        .catch((error) => {
+          console.log("Error: ", error);
+        });
+    }
+  );
 });
-
 
 module.exports = app;
